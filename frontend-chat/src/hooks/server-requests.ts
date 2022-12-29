@@ -3,13 +3,11 @@ import { User } from '../types/user';
 
 const endpoint = 'http://localhost:3000'; // todo: add endpoint (server) address (starting with http://)
 
-
 /**
  * GET Request to get the list of messages
  **/
 export async function getMessages() {
   // todo: replace this with fetch to get the messages from the server
-  // const { mockMessages } = await import(`${endpoint}/mockMessages`);
 
   const response = await fetch(`${endpoint}/mockMessages`);
   const mockMessages = await response.json();
@@ -17,16 +15,7 @@ export async function getMessages() {
     msg.status = 'ok';
   })
   return mockMessages;
-
-  // todo: this should be implemented in the server. Chat Messages should already have the authors' names.
-  // todo: remove this mapping when getting the data from the server
-/*   const mockMessagesWithNames = await mockMessages.map((message: Message) => {
-    const author = mockUsers.find(user => user.id === message.authorId);
-    const authorName = author && author.name;
-    return { ...message, authorName };
-  }); */
-
-}
+};
 
 /**
  * GET request to get the full list of users - id + name
@@ -36,8 +25,7 @@ export async function getUsers() {
   const response = await fetch(`${endpoint}/mockUsers`);
   const mockUsers = await response.json()
   return mockUsers;
-}
-
+};
 
 /**
  * GET request to get the full details of a user
@@ -47,7 +35,7 @@ export async function getUserDetails(userId: number) {
   //  For mocking example, we're calling an external JSON service.
   //  You can use mockUserDetails.ts for the list of user details in the server.
   const res = await fetch(`${endpoint}/mockUsers/${userId}`);
-  const user = await res.json();
+  const user: User[] = await res.json();
   return user[0];
 }
 
@@ -56,7 +44,6 @@ export async function getUserDetails(userId: number) {
  **/
 export async function addNewMessage(message: Message) {
   // todo: implement sending a new message to the server
-  
   const res = await fetch(`${endpoint}/addNewMessage`, {
     method: 'post',
     headers: {
@@ -64,14 +51,16 @@ export async function addNewMessage(message: Message) {
     },
     body: `${JSON.stringify(message)}`
   });
-  
-}
+  const postStatus = await res.status;
+  if (postStatus === 200) return true
+  return false; 
+};
 
 /**
  * POST request to change the user's like of a message
  **/
 export async function changeMessageLikes(messageId: number, userId: number, like: boolean) {
-  // todo: implement sending a rquest to change the like of a message by the user
+  // todo: implement sending a request to change the like of a message by the user
   const res = await fetch(`${endpoint}/handleLike`, {
     method: 'post',
     headers: {

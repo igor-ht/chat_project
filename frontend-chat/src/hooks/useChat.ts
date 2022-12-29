@@ -51,14 +51,10 @@ export function useChat() {
         }
       ]);
       
-
       // todo - bonus: handle changing the message status from 'pending' to 'ok'
       //  when a success response is returned from the server
-      await addNewMessage(newMessage);
-      event.target.value = '';
-
-      // todo - remove these lines - mocking changing the message status
-      setTimeout(() => {
+      const postStatus = await addNewMessage(newMessage);
+      if (postStatus === true) {
         setMessages([
           ...messages, {
             ...newMessage,
@@ -67,7 +63,8 @@ export function useChat() {
             status: 'ok'
           }
         ]);
-      }, 1000);
+      }
+      event.target.value = '';
     }
   };
  

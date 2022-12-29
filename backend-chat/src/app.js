@@ -14,7 +14,7 @@ app.use((0, cors_1.default)({
     origin: 'http://localhost:5173'
 }));
 app.get('/', (req, res) => {
-    res.send('hello there');
+    res.send('Backend Server for Chat API');
 });
 app.get('/mockMessages', (req, res) => {
     const mockMessagesWithNames = mockMessages_1.mockMessages.map((message) => {
@@ -36,7 +36,7 @@ app.post('/addNewMessage', (req, res) => {
     }
     catch (e) {
         console.log(e);
-        res.send({ message: "Server couldn`t save the message. Try again later." });
+        res.send({ message: "Server couldn`t receive the message. Try again later." });
         res.status(500);
     }
 });
@@ -53,15 +53,15 @@ app.post('/handleLike', (req, res) => {
         else {
             mockMessages_1.mockMessages.forEach(message => {
                 if (message.id === msg.messageId) {
-                    message.likes = message.likes.filter(id => +id !== +msg.userId);
+                    message.likes = message.likes.filter(id => id !== msg.userId);
                 }
             });
         }
         res.status(200);
-        res.send('Handle Input succesfully updated');
+        res.send('Handle Like succesfully updated');
     }
     catch (e) {
-        res.send(e);
+        res.send('Server failed to update');
         res.status(500);
     }
 });
@@ -75,4 +75,4 @@ app.get('/mockUsers/:id', (req, res) => {
         }
     }));
 });
-app.listen(3000, () => console.log('server 3000 listening'));
+app.listen(3000, () => console.log('listening to host 3000'));
