@@ -1,0 +1,111 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  width: 100%;
+  height: 100%;
+}
+
+.chat {
+  padding: 2rem;
+
+  .message {
+    width: 100%;
+    border: 2px #646cffaa solid;
+    border-radius: 4px;
+    margin-bottom: 4px;
+
+    .message-header {
+      display: flex;
+      justify-content: space-between;
+      background: #61dafbaa;
+      padding: 0 4px;
+
+      .message-like {
+        visibility: hidden;
+      }
+
+      &:hover .message-like {
+        visibility: initial;
+      }
+
+      .message-author, .message-likes, .message-like {
+        padding: 0 4px;
+        cursor: pointer;
+
+        &:hover {
+          background: rgba(59, 251, 211, 0.67);
+        }
+      }
+
+      .message-likes, .message-like {
+        &:before {
+          content: "⭐";
+        }
+      }
+    }
+
+    .message-body {
+      padding: 0 4px;
+    }
+  }
+}
+
+.write-message {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  padding: 1rem 2rem;
+  width: 100%;
+  background: rgba(59, 251, 211, 0.67);
+
+  .message-input {
+    width: calc(100% - 4rem);
+  }
+}
+
+.bottom-spacer {
+  height: 110px;
+}
+
+.popup {
+  width: 400px;
+  height: 440px;
+  background: lavenderblush;
+  padding: 20px;
+  position: fixed;
+  top: 100px;
+  left: calc(50% - 200px);
+
+  .close {
+    text-align: center;
+    width: 1.4em;
+    height: 1.4em;
+    float: right;
+    background: rgba(59, 251, 211, 0.67);
+    border-radius: 50%;
+    cursor: pointer;
+  }
+}
+
+.spinner {
+  bottom: 7px;
+  margin: auto;
+  height: 50px;
+  width: 50px;
+  border: solid 10px;
+  border-color: red blue yellow greenyellow;
+  border-radius: 50%;
+  animation-name: spin;
+  animation-duration: 5000ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
