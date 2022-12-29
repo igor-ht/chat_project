@@ -36,8 +36,7 @@ app.post('/addNewMessage', (req, res) => {
     mockMessages.push(msg);
     res.send({message: "Message succesfully received."});
     res.status(200);
-  } catch (e) {
-    console.log(e)
+  } catch {
     res.send({message: "Server couldn`t receive the message. Try again later."});
     res.status(500);
   }
@@ -62,7 +61,7 @@ app.post('/handleLike', (req, res) => {
     }
     res.status(200)
     res.send('Handle Like succesfully updated')
-  } catch (e) {
+  } catch {
     res.send('Server failed to update')
     res.status(500)
   }
@@ -74,11 +73,17 @@ app.get('/mockUsers', (req, res) => {
 });
 
 app.get('/mockUsers/:id', (req, res) => {
-  res.send(mockUserDetails.filter(user => {
-    if (user.id === +req.params.id) {
-      return true
-    }
-  }))
+  try {
+    res.send(mockUserDetails.filter(user => {
+      if (user.id === +req.params.id) {
+        return true
+      }
+    }));
+    res.status(200);
+  } catch {
+    res.status(500);
+    res.send({message: 'The server could`t find this user.'})
+  }
 });
 
 
