@@ -23,8 +23,8 @@ export async function getMessages() {
 export async function getUsers() {
   // todo: replace this with fetch to get the user list from the server
   const response = await fetch(`${endpoint}/mockUsers`);
-  const mockUsers = await response.json()
-  return mockUsers;
+  const mockUsers = await response.json();
+  return mockUsers.map( (user: User) => user = {id: user.id, name: user.name} );
 };
 
 /**
